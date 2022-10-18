@@ -40,3 +40,26 @@ $ etcdutl version
 etcdutl version: 3.5.2
 API version: 3.5
 ```
+
+Create the etcd.service systemd unit file
+```bash
+cat << EOF | sudo tee /etc/systemd/system/etcd.service
+[Unit]
+Decription=etcd service
+Documentation=https://github.com/etcd-io/etcd
+After=network.target
+
+[Service]
+User=etcd
+Type=notify
+Environment=ETCD_DATA_DIR=/var/lib/etcd
+Environment=ETCD_NAME=%m
+ExecStart=/usr/local/bin/etcd
+Restart=always
+RestartSec=10s
+LimitNOFILE=40000
+
+[Install]
+WantedBy=multi-user.target
+EOF
+```
