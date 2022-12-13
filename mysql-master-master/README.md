@@ -70,6 +70,11 @@ Query OK, 0 rows affected (0.00 sec)
 ```
 
 Cấp quyền Replication
+```bash
+mysql> GRANT REPLICATION SLAVE ON *.* TO 'Username'@'IP_Slave_Server';
+```
+
+Nhớ điền username và IP_Slave_Server giống khởi tạo ở trên nhé. Không thì chả biết phân quyền cho thằng nào đâu 😃
 
 ```bash
 mysql> show master status;
