@@ -1,0 +1,5 @@
+- Base image của Jenkins chưa được cài đặt Docker, nên chúng ta chuyển sang user root để cài đặt.
+- Điều quan trọng ở đây, ta mount /var/run/docker.sock từ host với /var/run/docker.sock trên container, để docker cli bên trong container có thể communicate với docker service của host.
+- Khi gọi docker command với user jenkins, docker user group yêu cầu permissions. Vì thế ta add jenkins user vào docker group.
+- Nhưng khi gọi docker command trong container, vẫn có lỗi permission deny. Do môi trường trong container và host là khác nhau, mọi user, group được tạo ở hai môi trường là khác nhau. Vì thế ta cần phải đảm bảo rằng user, group ở hai môi trường phải cùng một UID, GID.
+- Nếu vẫn không thể sử dụng Jenkins với permission của Jenkins’s file, hãy change ownership trên host.
